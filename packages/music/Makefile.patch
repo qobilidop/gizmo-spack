@@ -1,0 +1,66 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,32 +1,32 @@
+ ##############################################################################
+ ### compile time configuration options
+-FFTW3		= yes
+-MULTITHREADFFTW	= yes
+-SINGLEPRECISION	= no
+-HAVEHDF5        = yes
++# FFTW3		= yes
++# MULTITHREADFFTW	= yes
++# SINGLEPRECISION	= no
++# HAVEHDF5        = yes
+ HAVEBOXLIB	= no
+ BOXLIB_HOME     = ${HOME}/nyx_tot_sterben/BoxLib
+ 
+ ##############################################################################
+ ### compiler and path settings
+-CC      = g++
+-OPT     = -Wall -Wno-unknown-pragmas -O3 -g -mtune=native
+-CFLAGS  =  
+-LFLAGS  = -lgsl -lgslcblas 
+-CPATHS  = -I. -I$(HOME)/local/include -I/opt/local/include -I/usr/local/include
+-LPATHS  = -L$(HOME)/local/lib -L/opt/local/lib -L/usr/local/lib
++# CC      = g++
++# OPT     = -Wall -Wno-unknown-pragmas -O3 -g -mtune=native
++# CFLAGS  =  
++LFLAGS  += -lgsl -lgslcblas 
++CPATHS  = -I.
++LPATHS  =
+ 
+ ##############################################################################
+ # if you have FFTW 2.1.5 or 3.x with multi-thread support, you can enable the 
+ # option MULTITHREADFFTW
+ ifeq ($(strip $(MULTITHREADFFTW)), yes)
+-  ifeq ($(CC), mpiicpc)
+-    CFLAGS += -openmp
+-    LFLAGS += -openmp
+-  else
+-    CFLAGS += -fopenmp
+-    LFLAGS += -fopenmp
+-  endif
++#  ifeq ($(CC), mpiicpc)
++#    CFLAGS += -openmp
++#    LFLAGS += -openmp
++#  else
++#    CFLAGS += -fopenmp
++#    LFLAGS += -fopenmp
++#  endif
+   ifeq ($(strip $(FFTW3)),yes)
+ 	ifeq ($(strip $(SINGLEPRECISION)), yes)
+ 		LFLAGS  +=  -lfftw3f_threads
+@@ -68,12 +68,11 @@
+ ##############################################################################
+ #if you have HDF5 installed, you can also enable the following options
+ ifeq ($(strip $(HAVEHDF5)), yes)
+-  OPT += -DH5_USE_16_API -DHAVE_HDF5
++  CFLAGS += -DH5_USE_16_API -DHAVE_HDF5
+   LFLAGS += -lhdf5
+ endif
+ 
+ ##############################################################################
+-CFLAGS += $(OPT)
+ TARGET  = MUSIC
+ OBJS    = output.o transfer_function.o Numerics.o defaults.o constraints.o random.o\
+ 		convolution_kernel.o region_generator.o densities.o cosmology.o poisson.o\
