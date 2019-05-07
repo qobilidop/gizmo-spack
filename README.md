@@ -1,1 +1,1 @@
-# spack-repo
+# spack-gizmo
