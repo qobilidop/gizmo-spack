@@ -1,4 +1,3 @@
-import os
 from spack import *
 
 
@@ -18,17 +17,16 @@ class Gizmo(MakefilePackage):
     """A flexible, massively-parallel, multi-physics simulation code."""
 
     homepage = "http://www.tapir.caltech.edu/~phopkins/Site/GIZMO.html"
-    hg = 'https://bitbucket.org/phopkins/gizmo-public'
 
-    version('develop')
+    version('public', hg='https://bitbucket.org/phopkins/gizmo-public')
 
     variant('hdf5', default=True)
     variant('grackle', default=False)
 
     depends_on('mpi')
     depends_on('gsl')
-    depends_on('fftw@2:2.2+openmp+mpi')
-    depends_on('hdf5+cxx+mpi', when='+hdf5')
+    depends_on('fftw-api@2')
+    depends_on('hdf5', when='+hdf5')
     depends_on('grackle', when='+grackle')
 
     def edit(self, spec, prefix):
@@ -37,6 +35,8 @@ class Gizmo(MakefilePackage):
         env['OPENMP_FLAG'] = self.compiler.openmp_flag
         with open('Makefile.systype', 'w') as f:
             f.write(MAKE_TEXT)
+        touch('Config.sh')
 
     def install(self, spec, prefix):
-        pass
+        mkdir(prefix.bin)
+        install('GIZMO', prefix.bin)
