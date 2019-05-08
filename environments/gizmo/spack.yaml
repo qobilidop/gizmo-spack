@@ -1,0 +1,11 @@
+spack:
+  specs:
+  - gizmo-deps
+  - music
+  config: {}
+  mirrors: {}
+  modules:
+    enable: []
+  packages: {}
+  repos: []
+  upstreams: {}
