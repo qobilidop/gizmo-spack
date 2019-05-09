@@ -10,8 +10,6 @@ class Music(MakefilePackage):
     version('develop')
 
     variant('fftw3', default=True)
-    variant('openmp', default=True)
-    variant('float', default=False)
     variant('hdf5', default=False)
 
     patch('Makefile.patch')
@@ -22,13 +20,8 @@ class Music(MakefilePackage):
 
     depends_on('gsl')
 
-    depends_on('fftw-api@3', when='+fftw3')
-    depends_on('fftw-api@2', when='-fftw3')
-
-    depends_on('fftw+openmp', when='+openmp')
-
-    depends_on('fftw+float', when='+float')
-    depends_on('fftw+double', when='-float')
+    depends_on('fftw@3:+double+openmp', when='+fftw3')
+    depends_on('fftw@2:2.2+double+openmp', when='-fftw3')
 
     depends_on('hdf5+cxx', when='+hdf5')
 
@@ -41,17 +34,11 @@ class Music(MakefilePackage):
         else:
             env['FFTW3'] = 'no'
 
-        if '+openmp' in spec:
-            env['MULTITHREADFFTW'] = 'yes'
-            env['CFLAGS'] = self.compiler.openmp_flag
-            env['LFLAGS'] = self.compiler.openmp_flag
-        else:
-            env['MULTITHREADFFTW'] = 'no'
+        env['MULTITHREADFFTW'] = 'yes'
+        env['CFLAGS'] = self.compiler.openmp_flag
+        env['LFLAGS'] = self.compiler.openmp_flag
 
-        if '+float' in spec:
-            env['SINGLEPRECISION'] = 'yes'
-        else:
-            env['SINGLEPRECISION'] = 'no'
+        env['SINGLEPRECISION'] = 'no'
 
         if '+hdf5' in spec:
             env['HAVEHDF5'] = 'yes'
