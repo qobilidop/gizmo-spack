@@ -1,0 +1,14 @@
+compilers:
+- compiler:
+    environment: {}
+    extra_rpaths: []
+    flags: {}
+    modules: [intel/19.3]
+    operating_system: centos7
+    paths:
+      cc: /opt/intel/compilers_and_libraries_2019.3.199/linux/bin/intel64/icc
+      cxx: /opt/intel/compilers_and_libraries_2019.3.199/linux/bin/intel64/icpc
+      f77: /opt/intel/compilers_and_libraries_2019.3.199/linux/bin/intel64/ifort
+      fc: /opt/intel/compilers_and_libraries_2019.3.199/linux/bin/intel64/ifort
+    spec: intel@19.0.3.199
+    target: x86_64

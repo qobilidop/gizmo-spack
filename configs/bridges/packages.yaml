@@ -1,0 +1,30 @@
+# module purge
+# module load psc_path/1.1 slurm/default
+# module load intel/19.3
+packages:
+  all:
+    compiler: [intel]
+    providers:
+      blas: [intel-mkl]
+      lapack: [intel-mkl]
+      mkl: [intel-mkl]
+      mpi: [intel-mpi]
+      scalapack: [intel-mkl]
+
+  intel-mkl:
+    buildable: False
+    paths:
+      # module show intel/19.3
+      # MKLROOT
+      intel-mkl@2019.3.199: /opt/intel/compilers_and_libraries_2019.3.199/linux/mkl
+  intel-mpi:
+    buildable: False
+    paths:
+      # module show intel/19.3
+      # I_MPI_ROOT
+      intel-mpi@2019.3.199: /opt/intel/compilers_and_libraries_2019.3.199/linux/mpi
+
+  fftw:
+    variants: +double+float+mpi+openmp
+  hdf5:
+    variants: +cxx+mpi
