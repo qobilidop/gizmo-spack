@@ -6,8 +6,6 @@ packages:
     compiler: [intel]
     providers:
       blas: [intel-mkl]
-      fftw-api@2: [fftw@2.1.5]
-      fftw-api@3: [fftw@3.3.4]
       lapack: [intel-mkl]
       mkl: [intel-mkl]
       mpi: [mvapich2]

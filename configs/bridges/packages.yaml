@@ -27,4 +27,6 @@ packages:
   fftw:
     variants: +double+float+mpi+openmp
   hdf5:
-    variants: +cxx+mpi
+    buildable: False
+    modules:
+      hdf5@1.8.21: hdf5/1.8.21_intel
