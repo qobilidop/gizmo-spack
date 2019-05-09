@@ -1,0 +1,14 @@
+compilers:
+- compiler:
+    environment: {}
+    extra_rpaths: []
+    flags: {}
+    modules: [intel/2016.3.210]
+    operating_system: centos6
+    paths:
+      cc: /opt/intel/2016.3.210/compilers_and_libraries_2016.3.210/linux/bin/intel64/icc
+      cxx: /opt/intel/2016.3.210/compilers_and_libraries_2016.3.210/linux/bin/intel64/icpc
+      f77: /opt/intel/2016.3.210/compilers_and_libraries_2016.3.210/linux/bin/intel64/ifort
+      fc: /opt/intel/2016.3.210/compilers_and_libraries_2016.3.210/linux/bin/intel64/ifort
+    spec: intel@16.0.3
+    target: x86_64

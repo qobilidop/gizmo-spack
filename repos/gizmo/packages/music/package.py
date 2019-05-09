@@ -24,8 +24,8 @@ class Music(MakefilePackage):
 
     depends_on('fftw+openmp', when='+openmp')
 
-    depends_on('fftw+double', when='-float')
     depends_on('fftw+float', when='+float')
+    depends_on('fftw+double', when='-float')
 
     depends_on('hdf5+cxx', when='+hdf5')
 

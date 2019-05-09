@@ -1,0 +1,39 @@
+# module purge
+# module load gnutools
+# module load intel/2016.3.210 mvapich2_ib/2.1
+packages:
+  all:
+    compiler: [intel]
+    providers:
+      blas: [intel-mkl]
+      fftw-api@2: [fftw@2.1.5]
+      fftw-api@3: [fftw@3.3.4]
+      lapack: [intel-mkl]
+      mkl: [intel-mkl]
+      mpi: [mvapich2]
+      scalapack: [intel-mkl]
+
+  intel-mkl:
+    buildable: False
+    paths:
+      # module show intel/2016.3.210
+      # MKLROOT
+      intel-mkl@2016.3.210: /opt/intel/2016.3.210/compilers_and_libraries_2016.3.210/linux/mkl
+  mvapich2:
+    buildable: False
+    modules:
+      mvapich2@2.1: mvapich2_ib/2.1
+
+  fftw:
+    buildable: False
+    modules:
+      fftw@2.1.5~double~float+mpi~openmp: fftw/2.1.5
+      fftw@3.3.4+double+float+mpi+openmp: fftw/3.3.4
+  gsl:
+    buildable: False
+    modules:
+      gsl@1.16: gsl/1.16
+  hdf5:
+    buildable: False
+    modules:
+      hdf5@1.8.14+mpi: hdf5/1.8.14

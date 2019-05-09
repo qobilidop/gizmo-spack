@@ -14,6 +14,7 @@ class GizmoDeps(Package):
     depends_on('mpi')
     depends_on('gsl')
     depends_on('fftw-api@2')
+    depends_on('fftw+mpi')
     depends_on('hdf5', when='+hdf5')
     depends_on('grackle', when='+grackle')
 
