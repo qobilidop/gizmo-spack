@@ -12,11 +12,14 @@ class Music(MakefilePackage):
     variant('fftw3', default=True)
     variant('openmp', default=True)
     variant('float', default=False)
-    variant('hdf5', default=True)
+    variant('hdf5', default=False)
 
     patch('Makefile.patch')
 
+    # FIXME: MUSIC doesn't really depend on MPI,
+    # but we are stuck with this to compile properly for now.
     depends_on('mpi')
+
     depends_on('gsl')
 
     depends_on('fftw-api@3', when='+fftw3')
@@ -30,6 +33,7 @@ class Music(MakefilePackage):
     depends_on('hdf5+cxx', when='+hdf5')
 
     def edit(self, spec, prefix):
+        # FIXME: See the MPI notes above. 'c++' should be good here.
         env['CC'] = spec['mpi'].mpicxx
 
         if '+fftw3' in spec:
