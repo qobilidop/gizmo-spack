@@ -1,6 +1,6 @@
 # module purge
 # module load gnutools
-# module load intel/2016.3.210 mvapich2_ib/2.1
+# module load intel/2016.3.210 openmpi_ib/1.8.4
 packages:
   all:
     compiler: [intel]
@@ -8,7 +8,7 @@ packages:
       blas: [intel-mkl]
       lapack: [intel-mkl]
       mkl: [intel-mkl]
-      mpi: [mvapich2]
+      mpi: [openmpi]
       scalapack: [intel-mkl]
 
   intel-mkl:
@@ -17,10 +17,10 @@ packages:
       # module show intel/2016.3.210
       # MKLROOT
       intel-mkl@2016.3.210: /opt/intel/2016.3.210/compilers_and_libraries_2016.3.210/linux/mkl
-  mvapich2:
+  openmpi:
     buildable: False
     modules:
-      mvapich2@2.1: mvapich2_ib/2.1
+      openmpi@1.8.4: openmpi_ib/1.8.4
 
   fftw:
     buildable: False
