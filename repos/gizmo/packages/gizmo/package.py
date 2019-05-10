@@ -1,6 +1,8 @@
 from spack import *
 
 
+CONFIG_FILE = 'Config.sh'
+FULL_CONFIG_FILE = 'Config.full.sh'
 MAKE_TEXT = """\
 CC       = $(MPICC)
 CXX      = $(MPICXX)
@@ -34,16 +36,28 @@ class Gizmo(MakefilePackage):
         env['MPICXX'] = spec['mpi'].mpicxx
         env['OPENMP_FLAG'] = self.compiler.openmp_flag
 
-        opt = []
-        if '+double' in spec['fftw']:
-            opt += ['-DDOUBLEPRECISION_FFTW']
-        elif '~float' in spec['fftw']:
-            opt += ['-DNOTYPEPREFIX_FFTW']
-        env['OPT'] = ' '.join(opt)
-
+        # Overwrite systype config
         with open('Makefile.systype', 'w') as f:
             f.write(MAKE_TEXT)
-        touch('Config.sh')
+
+        # Load configs
+        touch(CONFIG_FILE)
+        with open(CONFIG_FILE, 'r') as f:
+            configs = f.readlines()
+
+        # Update configs
+        if '+double' in spec['fftw']:
+            configs += ['DOUBLEPRECISION_FFTW\n']
+        elif '~float' in spec['fftw']:
+            configs += ['NOTYPEPREFIX_FFTW\n']
+
+        # Set full configs
+        with open(FULL_CONFIG_FILE, 'w') as f:
+            f.writelines(configs)
+
+        make('clean')
+
+    build_targets = ['CONFIG=' + FULL_CONFIG_FILE]
 
     def install(self, spec, prefix):
         mkdir(prefix.bin)
