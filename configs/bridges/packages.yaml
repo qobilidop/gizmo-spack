@@ -30,3 +30,6 @@ packages:
     buildable: False
     modules:
       hdf5@1.8.21: hdf5/1.8.21_intel
+
+  gizmo:
+    variants: +mpi_in_place

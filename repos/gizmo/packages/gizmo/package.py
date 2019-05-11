@@ -22,6 +22,7 @@ class Gizmo(MakefilePackage):
 
     version('develop-public', hg='https://bitbucket.org/phopkins/gizmo-public')
 
+    variant('mpi_in_place', default=False)
     variant('grackle', default=False)
 
     depends_on('mpi')
@@ -46,6 +47,8 @@ class Gizmo(MakefilePackage):
             configs = f.readlines()
 
         # Update configs
+        if '+mpi_in_place' in spec:
+            configs += ['USE_MPI_IN_PLACE\n']
         if '+double' in spec['fftw']:
             configs += ['DOUBLEPRECISION_FFTW\n']
         elif '~float' in spec['fftw']:
