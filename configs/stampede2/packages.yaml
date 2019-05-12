@@ -1,0 +1,37 @@
+# module reset
+# module load intel/18.0.2 impi/18.0.2
+packages:
+  all:
+    compiler: [intel]
+    providers:
+      blas: [intel-mkl]
+      lapack: [intel-mkl]
+      mkl: [intel-mkl]
+      mpi: [intel-mpi]
+      scalapack: [intel-mkl]
+
+  intel-mkl:
+    buildable: False
+    paths:
+      # module show intel/18.0.2
+      # MKLROOT
+      intel-mkl@2018.2.199: /opt/intel/compilers_and_libraries_2018.2.199/linux/mkl
+  intel-mpi:
+    buildable: False
+    paths:
+      # module show impi/18.0.2
+      # I_MPI_ROOT
+      intel-mpi@2018.2.199: /opt/intel/compilers_and_libraries_2018.2.199/linux/mpi
+
+  fftw:
+    buildable: False
+    modules:
+      fftw@2.1.5+double+float+mpi+openmp: fftw2/2.1.5
+      fftw@3.3.8+double+float+mpi+openmp: fftw3/3.3.8
+  hdf5:
+    buildable: False
+    modules:
+      hdf5@1.10.4: phdf5/1.10.4
+
+  gizmo:
+    variants: +mpi_in_place
