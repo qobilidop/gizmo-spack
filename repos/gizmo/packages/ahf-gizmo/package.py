@@ -24,6 +24,8 @@ class AhfGizmo(MakefilePackage):
     variant('mpi', default=True)
     variant('openmp', default=True)
 
+    patch('io_gizmo.c.patch')
+
     depends_on('hdf5', when='+hdf5')
     depends_on('mpi', when='+mpi')
 

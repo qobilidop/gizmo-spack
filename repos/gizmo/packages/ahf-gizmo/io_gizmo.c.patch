@@ -1,0 +1,158 @@
+--- a/src/libio/io_gizmo.c
++++ b/src/libio/io_gizmo.c
+@@ -1118,7 +1118,7 @@
+   int type;
+   hid_t hdf5_datatype = 0;
+   void * CommBuffer;
+-  int num_bytes = 0;
++  uint64_t num_bytes = 0;
+   int num_elements = 3; // 3 Coordinates: x,y,z
+   
+   /* Set extreme position detectors */
+@@ -1150,11 +1150,11 @@
+     
+     if (CommBuffer == NULL)
+     {
+-      io_logging_fatal(log, "local_get_block_pos(): could not allocate %d bytes", (int)num_bytes);
++      io_logging_fatal(log, "local_get_block_pos(): could not allocate %" PRIu64 " bytes", num_bytes);
+       return UINT64_C(0);
+     }
+     
+-    io_logging_msg(log, INT32_C(2), "local_get_block_pos(): part type %d: allocated %d bytes for CommBuffer", type, (int)num_bytes);
++    io_logging_msg(log, INT32_C(2), "local_get_block_pos(): part type %d: allocated %" PRIu64 " bytes for CommBuffer", type, num_bytes);
+     
+     io_util_readhdf5(log, f, "Coordinates", type, num_elements, hdf5_datatype, hdf5_grp, CommBuffer);
+     
+@@ -1240,7 +1240,7 @@
+   int type;
+   hid_t hdf5_datatype = 0;
+   void * CommBuffer;
+-  int num_bytes = 0;
++  uint64_t num_bytes = 0;
+   int num_elements = 3; // 3 velocity components: x,y,z
+   
+   for (type = 0; type < 6; type ++)
+@@ -1266,11 +1266,11 @@
+     
+     if (CommBuffer == NULL)
+     {
+-      io_logging_fatal(log, "local_get_block_vel(): could not allocate %d bytes", (int)num_bytes);
++      io_logging_fatal(log, "local_get_block_vel(): could not allocate %" PRIu64 " bytes", num_bytes);
+       return UINT64_C(0);
+     }
+     
+-    io_logging_msg(log, INT32_C(2), "local_get_block_vel(): part type %d: allocated %d bytes for CommBuffer", type, (int)num_bytes);
++    io_logging_msg(log, INT32_C(2), "local_get_block_vel(): part type %d: allocated %" PRIu64 " bytes for CommBuffer", type, num_bytes);
+     
+     io_util_readhdf5(log, f, "Velocities", type, num_elements, hdf5_datatype, hdf5_grp, CommBuffer);
+     
+@@ -1331,7 +1331,7 @@
+   int type;
+   hid_t hdf5_datatype = 0;
+   void * CommBuffer;
+-  int num_bytes = 0;
++  uint64_t num_bytes = 0;
+   
+   for (type = 0; type < 6; type ++)
+   {
+@@ -1350,11 +1350,11 @@
+     
+     if (CommBuffer == NULL)
+     {
+-      io_logging_fatal(log, "local_get_block_id(): could not allocate %d bytes", (int)num_bytes);
++      io_logging_fatal(log, "local_get_block_id(): could not allocate %" PRIu64 " bytes", num_bytes);
+       return UINT64_C(0);
+     }
+     
+-    io_logging_msg(log, INT32_C(2), "local_get_block_id(): part type %d: allocated %d bytes for CommBuffer", type, (int)num_bytes);
++    io_logging_msg(log, INT32_C(2), "local_get_block_id(): part type %d: allocated %" PRIu64 " bytes for CommBuffer", type, num_bytes);
+     
+     io_util_readhdf5(log, f, "ParticleIDs", type, 1, hdf5_datatype, hdf5_grp, CommBuffer);
+     
+@@ -1393,7 +1393,7 @@
+   int type;
+   hid_t hdf5_datatype = 0;
+   void * CommBuffer;
+-  int num_bytes = 0;
++  uint64_t num_bytes = 0;
+   
+   /* Initialize some things */
+   f->sumweight = 0.0;
+@@ -1440,7 +1440,7 @@
+       
+       if (CommBuffer == NULL)
+       {
+-        io_logging_fatal(log, "local_get_block_mass(): could not allocate %d bytes", (int)num_bytes);
++        io_logging_fatal(log, "local_get_block_mass(): could not allocate %" PRIu64 " bytes", num_bytes);
+         return UINT64_C(0);
+       }
+       
+@@ -1514,7 +1514,7 @@
+   int type;
+   hid_t hdf5_datatype = 0;
+   void * CommBuffer;
+-  int num_bytes = 0;
++  uint64_t num_bytes = 0;
+   
+   for (type = 0; type < 6; type ++)
+   {
+@@ -1532,11 +1532,11 @@
+       
+       if (CommBuffer == NULL)
+       {
+-        io_logging_fatal(log, "local_get_block_u(): could not allocate %d bytes", (int)num_bytes);
++        io_logging_fatal(log, "local_get_block_u(): could not allocate %" PRIu64 " bytes", num_bytes);
+         return UINT64_C(0);
+       }
+       
+-      io_logging_msg(log, INT32_C(2), "local_get_block_u(): part type %d: allocated %d bytes for CommBuffer", type, (int)num_bytes);
++      io_logging_msg(log, INT32_C(2), "local_get_block_u(): part type %d: allocated %" PRIu64 " bytes for CommBuffer", type, num_bytes);
+       
+       io_util_readhdf5(log, f, "InternalEnergy", type, 1, hdf5_datatype, hdf5_grp, CommBuffer);
+     }
+@@ -1594,7 +1594,7 @@
+   int type;
+   hid_t hdf5_datatype = 0;
+   void * CommBuffer;
+-  int num_bytes = 0;
++  uint64_t num_bytes = 0;
+   int num_elements = f->header->flagmetals;
+ 
+   for (type = 0; type < 6; type ++)
+@@ -1623,11 +1623,11 @@
+     
+       if (CommBuffer == NULL)
+       {
+-        io_logging_fatal(log, "local_get_block_z(): could not allocate %d bytes", (int)num_bytes);
++        io_logging_fatal(log, "local_get_block_z(): could not allocate %" PRIu64 " bytes", num_bytes);
+         return UINT64_C(0);
+       }
+     
+-      io_logging_msg(log, INT32_C(2), "local_get_block_z(): part type %d: allocated %d bytes for CommBuffer", type, (int)num_bytes);
++      io_logging_msg(log, INT32_C(2), "local_get_block_z(): part type %d: allocated %" PRIu64 " bytes for CommBuffer", type, num_bytes);
+    
+       io_util_readhdf5(log, f, "Metallicity", type, num_elements, hdf5_datatype, hdf5_grp, CommBuffer);
+     
+@@ -1687,7 +1687,7 @@
+   int type;
+   hid_t hdf5_datatype = 0;
+   void * CommBuffer;
+-  int num_bytes = 0;
++  uint64_t num_bytes = 0;
+   
+   for (type = 0; type < 6; type ++)
+   {
+@@ -1706,11 +1706,11 @@
+       
+       if (CommBuffer == NULL)
+       {
+-        io_logging_fatal(log, "local_get_block_age(): could not allocate %d bytes", (int)num_bytes);
++        io_logging_fatal(log, "local_get_block_age(): could not allocate %" PRIu64 " bytes", num_bytes);
+         return UINT64_C(0);
+       }
+       
+-      io_logging_msg(log, INT32_C(2), "local_get_block_age(): part type %d: allocated %d bytes for CommBuffer", type, (int)num_bytes);
++      io_logging_msg(log, INT32_C(2), "local_get_block_age(): part type %d: allocated %" PRIu64 " bytes for CommBuffer", type, num_bytes);
+       
+       /* StellarAge should be the proper tag in the HDF5 file */
+       io_util_readhdf5(log, f, "StellarFormationTime", type, 1, hdf5_datatype, hdf5_grp, CommBuffer);
