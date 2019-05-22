@@ -1,0 +1,13 @@
+diff --git a/lib/spack/spack/util/environment.py b/lib/spack/spack/util/environment.py
+index ef2d2a23b..52815c4b9 100644
+--- a/lib/spack/spack/util/environment.py
++++ b/lib/spack/spack/util/environment.py
+@@ -565,7 +565,7 @@ class EnvironmentModifications(object):
+                              for k, v in env_after.items())
+ 
+         # Other variables unrelated to sourcing a file
+-        blacklist.extend(['SHLVL', '_', 'PWD', 'OLDPWD', 'PS2'])
++        blacklist.extend(['SHLVL', '_', 'PWD', 'OLDPWD', 'PS1', 'PS2', 'BASH_FUNC_module()'])
+ 
+         def set_intersection(fullset, *args):
+             # A set intersection using string literals and regexs
