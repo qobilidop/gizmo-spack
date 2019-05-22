@@ -1,8 +1,0 @@
-**/ic/*.bin
-**/ic/*.txt
-**/ic/snapshot
-gizmo_hg/
-output/
-*.dat
-*-usedvalues
-GIZMO
