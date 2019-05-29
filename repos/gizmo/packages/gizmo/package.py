@@ -20,7 +20,7 @@ class Gizmo(MakefilePackage):
 
     homepage = "http://www.tapir.caltech.edu/~phopkins/Site/GIZMO.html"
 
-    version('develop-public', hg='https://bitbucket.org/phopkins/gizmo-public')
+    version('public', hg='https://bitbucket.org/phopkins/gizmo-public')
 
     variant('mpi_in_place', default=False)
     variant('grackle', default=False)
