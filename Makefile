@@ -5,7 +5,6 @@ $(info Using spack installed at $(SPACK_ROOT))
 
 .PHONY: install
 install:
-	cd $(SPACK_ROOT) && git stash && git apply -v $(THIS_DIR)/spack.patch
 	-spack env create gizmo environments/gizmo/spack.yaml
 	-spack repo add repos/gizmo
 
