@@ -32,6 +32,9 @@ packages:
     modules:
       gsl@1.16: gsl/1.16
   hdf5:
-    buildable: False
     modules:
       hdf5@1.8.14+mpi: hdf5/1.8.14
+  libtool:
+    buildable: False
+    modules:
+      libtool: gnutools
