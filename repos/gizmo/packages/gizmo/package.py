@@ -3,11 +3,12 @@ from spack import *
 
 CONFIG_FILE = 'Config.sh'
 FULL_CONFIG_FILE = 'Config.full.sh'
-MAKE_TEXT = """\
-CC       = $(MPICC)
-CXX      = $(MPICXX)
-FC       = $(MPICC)
-OPTIMIZE = $(OPENMP_FLAG)
+MAKE_SYS_FILE = 'Makefile.systype'
+MAKE_SYS_TEXT = """\
+CC       = @CC
+CXX      = @CXX
+FC       = @FC @FC_FLAGS
+OPTIMIZE = @OPTIMIZE
 
 HDF5INCL = -DH5_USE_16_API
 HDF5LIB  = -lhdf5 -lz
@@ -33,13 +34,21 @@ class Gizmo(MakefilePackage):
     depends_on('grackle', when='+grackle')
 
     def edit(self, spec, prefix):
-        env['MPICC'] = spec['mpi'].mpicc
-        env['MPICXX'] = spec['mpi'].mpicxx
-        env['OPENMP_FLAG'] = self.compiler.openmp_flag
+        subs = {
+            '@CC': spec['mpi'].mpicc,
+            '@CXX': spec['mpi'].mpicxx,
+            '@FC': spec['mpi'].mpifc,
+            '@FC_FLAGS': '',
+            '@OPTIMIZE': self.compiler.openmp_flag,
+        }
+        if self.compiler.spec == 'intel':
+            subs['@FC_FLAGS'] = '-nofor_main'
 
         # Overwrite systype config
-        with open('Makefile.systype', 'w') as f:
-            f.write(MAKE_TEXT)
+        with open(MAKE_SYS_FILE, 'w') as f:
+            f.write(MAKE_SYS_TEXT)
+        for k, v in subs.items():
+            filter_file(k, v, MAKE_SYS_FILE);
 
         # Load configs
         touch(CONFIG_FILE)
