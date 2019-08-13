@@ -27,7 +27,7 @@ class Grackle(Package):
 
     variant('float', default=False, description='Build with float')
 
-    depends_on('hdf5')
+    depends_on('hdf5~mpi')
     depends_on('libtool')
 
     parallel = False
