@@ -13,8 +13,7 @@ packages:
   intel-mkl:
     buildable: False
     paths:
-      # module show intel/18.0.2
-      # MKLROOT
+      # intel/18.0.2 MKLROOT
       intel-mkl@2018.2.199: /opt/intel/compilers_and_libraries_2018.2.199/linux/mkl
   intel-mpi:
     buildable: False
@@ -23,9 +22,10 @@ packages:
 
   fftw:
     buildable: False
-    modules:
-      fftw@3.3.8+double+float+mpi+openmp: fftw3/3.3.8
+    # There are mysterious issues when specifying modules here. So use paths instead.
     paths:
+      # fftw3/3.3.8 TACC_FFTW3_DIR
+      fftw@3.3.8+double+float+mpi+openmp: /opt/apps/intel18/impi18_0/fftw3/3.3.8
       # fftw2/2.1.5 TACC_FFTW2_DIR
       fftw@2.1.5+double+float+mpi+openmp: /home1/apps/intel18/impi18_0/fftw2/2.1.5
   hdf5:
