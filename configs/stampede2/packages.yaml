@@ -28,6 +28,10 @@ packages:
       fftw@3.3.8+double+float+mpi+openmp: /opt/apps/intel18/impi18_0/fftw3/3.3.8
       # fftw2/2.1.5 TACC_FFTW2_DIR
       fftw@2.1.5+double+float+mpi+openmp: /home1/apps/intel18/impi18_0/fftw2/2.1.5
+  gsl:
+    buildable: False
+    modules:
+      gsl@2.3: gsl/2.3
   hdf5:
     buildable: False
     modules:
