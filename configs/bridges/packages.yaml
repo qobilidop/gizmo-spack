@@ -25,7 +25,9 @@ packages:
       intel-mpi@2019.3.199: /opt/intel/compilers_and_libraries_2019.3.199/linux/mpi
 
   fftw:
-    variants: +double+float+mpi+openmp
+    buildable: True
+    modules:
+      fftw@3.3.4+double+float~mpi+openmp: fftw3/3.3.4
   hdf5:
     buildable: False
     modules:
