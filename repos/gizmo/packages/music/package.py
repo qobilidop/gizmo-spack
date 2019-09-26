@@ -25,6 +25,12 @@ class Music(MakefilePackage):
 
     depends_on('hdf5+cxx', when='+hdf5')
 
+    # requires C++11
+    def flag_handler(self, name, flags):
+        if name == 'cxxflags':
+            flags.append(self.compiler.cxx11_flag)
+        return (flags, None, None)
+
     def edit(self, spec, prefix):
         # FIXME: See the MPI notes above. 'c++' should be good here.
         env['CC'] = spec['mpi'].mpicxx
