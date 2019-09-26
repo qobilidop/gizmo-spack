@@ -26,6 +26,7 @@ packages:
 
   fftw:
     buildable: True
+    version: [3.3.4]
     modules:
       fftw@3.3.4+double+float~mpi+openmp: fftw3/3.3.4
   hdf5:
